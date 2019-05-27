@@ -10,7 +10,7 @@ public class Triangle {
     public Triangle() {
     }
 
-    public Triangle(int x1, int y1, int x2, int y2, int x3, int y3) {
+    public Triangle(double x1, double y1, double x2, double y2, double x3, double y3) {
         if (checkTriangleNotExist(x1, y1, x2, y2, x3, y3)) {
             throw new IllegalArgumentException("Your triangle doesn't exist with the parameters" +
                     " (" + x1 + ";" + y1 + "),(" + x2 + ";" + y2 + "),(" + x3 + ";" + y3 + "), ");
@@ -36,9 +36,9 @@ public class Triangle {
 
     private static double[] countSides(double x1, double y1, double x2, double y2, double x3, double y3) {
         double[] arrSide = new double[3];
-        arrSide[0] = Math.sqrt((Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2)));
-        arrSide[1] = Math.sqrt(Math.pow((x3 - x2), 2) + Math.pow((y3 - y2), 2));
-        arrSide[2] = Math.sqrt((Math.pow((x1 - x3), 2) + Math.pow((y1 - y3), 2)));
+        arrSide[0] = (int) Math.sqrt((Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2)));
+        arrSide[1] = (int) Math.sqrt(Math.pow((x3 - x2), 2) + Math.pow((y3 - y2), 2));
+        arrSide[2] = (int) Math.sqrt((Math.pow((x1 - x3), 2) + Math.pow((y1 - y3), 2)));
         return arrSide;
     }
 
@@ -53,21 +53,25 @@ public class Triangle {
     public String defineTriangle(Triangle triangle) {
         double[] arrSide = countSides(triangle.a.getX(), triangle.a.getY(), triangle.b.getX(), triangle.b.getY(),
                 triangle.c.getX(), triangle.c.getY());
-        String res = "- triangle has";
+        String res = "- triangle";
         if (arrSide[0] == arrSide[1] || arrSide[0] == arrSide[2] || arrSide[2] == arrSide[1]) {
-            res += "  isosceles " + Arrays.toString(arrSide);
+            res += " is isosceles ";
             if  (arrSide[0] == arrSide[1] && arrSide[0] == arrSide[2] && arrSide[2] == arrSide[1]) {
-                res += " equilateral " + Arrays.toString(arrSide);
-            } else if (Double.compare((Math.pow(arrSide[0], 2) + Math.pow(arrSide[1], 2)), Math.pow(arrSide[2], 2))  == 0 ||
-                  Double.compare( Math.pow(arrSide[1], 2) + Math.pow(arrSide[2], 2) , Math.pow(arrSide[0], 2))  == 0 ||
-                  Double.compare(Math.pow(arrSide[0], 2) + Math.pow(arrSide[2], 2) , Math.pow(arrSide[1], 2))  == 0 ) {
-                res += "  90 degrees angle " + Arrays.toString(arrSide);
+                res += " is equilateral";6
             }
         }
+        else if ((Math.pow(arrSide[0], 2) + Math.pow(arrSide[1], 2)) == Math.pow(arrSide[2], 2)  ||
+                    (Math.pow(arrSide[1], 2) + Math.pow(arrSide[2], 2) == Math.pow(arrSide[0], 2))   ||
+                    (Math.pow(arrSide[0], 2) + Math.pow(arrSide[2], 2) == Math.pow(arrSide[1], 2))) {
+                    res += " has 90 degrees angle ";
+                }
+
+         else
         {
-            res += " different sides " + Arrays.toString(arrSide) +"  " +(Math.pow(arrSide[1], 2) + Math.pow(arrSide[2], 2)) +"  "+  Math.pow(arrSide[0], 2) ;
+            res += " has different sides " ;
         }
 
         return res;
     }
+
 }
